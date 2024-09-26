@@ -1,0 +1,202 @@
+#include <iostream>
+using namespace std;
+
+enum enOpLevel { easy = 1, mid = 2, hard = 3, mixLevel = 4 };
+
+enum enOpType { add = 1, sub = 2, mult = 3, Div = 4, mixType = 5 };
+
+struct stQuestion
+{
+    short n1;
+    short n2;
+    char opCharacter;
+    int correctAns;
+    int playerAns;
+};
+
+struct stQuiz
+{
+    stQuestion question;
+    short numsOfQuestions;
+    short opLevel;
+    short opType;
+    short rightAns;
+    short wrongAns;
+};
+
+short readNumInRange(short from, short to, string msg)
+{
+    short num;
+    do
+    {
+        cout << msg;
+        cin >> num;
+    } while (num < from || num > to);
+    return num;
+}
+
+short randomNum(short from, short to)
+{
+    short randomNum = rand() % (to - from + 1) + from;
+    return randomNum;
+}
+
+enOpLevel choosenLevel(short num)
+{
+    return (enOpLevel)num;
+}
+
+string choosenLevelName(short opLevel)
+{
+    string levelsname[4] = { "Easy", "Mid", "Hard", "Mix" };
+    return levelsname[choosenLevel(opLevel) - 1];
+}
+
+enOpType choosenType(short num)
+{
+    return (enOpType)num;
+}
+
+string choosenTypeName(short opType)
+{
+    string typeName[5] = { "Add", "Sub", "Mult", "Div", "Mix" };
+    return typeName[choosenType(opType) - 1];
+}
+
+short getNumAsLevel(stQuiz quiz, short mix)
+{
+    if (quiz.opLevel == enOpLevel::easy)
+        return randomNum(1, 10);
+
+    if (quiz.opLevel == enOpLevel::mid)
+        return randomNum(10, 100);
+    if (quiz.opLevel == enOpLevel::hard)
+        return randomNum(100, 1000);
+    if (quiz.opLevel == enOpLevel::mixLevel)
+    {
+        if (mix == 1)
+            return randomNum(1, 10);
+        else if (mix == 2)
+            return randomNum(10, 100);
+        else
+            return randomNum(100, 1000);
+    }
+}
+
+char getOpChar(stQuiz quiz)
+{
+    char op;
+    if (quiz.opType == enOpType::mixType)
+    {
+        op = char(randomNum(42, 45));
+        if (op == ',')
+            return '/';
+        else
+            return op;
+    }
+    if (quiz.opType == enOpType::add)
+        return '+';
+    if (quiz.opType == enOpType::sub)
+        return '-';
+    if (quiz.opType == enOpType::mult)
+        return '*';
+    if (quiz.opType == enOpType::Div)
+        return '/';
+}
+
+int questionAns(stQuestion question)
+{
+    if (question.opCharacter == '+')
+        return question.n1 + question.n2;
+    else if (question.opCharacter == '-')
+        return question.n1 - question.n2;
+    else if (question.opCharacter == '*')
+        return question.n1 * question.n2;
+    else
+        return question.n1 / question.n2;
+}
+
+void printQuestion(stQuestion question)
+{
+    cout << question.n1 << " " << question.opCharacter << endl;
+    cout << question.n2 << endl;
+    cout << "----------\n";
+}
+
+void generateResReaction(stQuiz& quiz)
+{
+    if (quiz.question.playerAns == quiz.question.correctAns)
+    {
+        cout << "Right answer\n";
+        system("color 2F");
+        quiz.rightAns++;
+    }
+    else
+    {
+        cout << "Wrong answer\n";
+        cout << "The right answer is: " << quiz.question.correctAns << "\a\n";
+        system("color 4F");
+        quiz.wrongAns++;
+    }
+}
+
+void printNumOfQuestions(stQuiz& quiz)
+{
+    short mix;
+    quiz.rightAns = quiz.wrongAns = 0;
+    for (short i = 1; i <= quiz.numsOfQuestions; i++)
+    {
+        mix = randomNum(1, 3);
+        quiz.question.n1 = getNumAsLevel(quiz, mix);
+        quiz.question.n2 = getNumAsLevel(quiz, mix);
+        quiz.question.opCharacter = getOpChar(quiz);
+        quiz.question.correctAns = questionAns(quiz.question);
+        cout << "\nQuestion [" << i << "/" << quiz.numsOfQuestions << "]\n";
+        printQuestion(quiz.question);
+        cin >> quiz.question.playerAns;
+        generateResReaction(quiz);
+    }
+}
+
+void printFinalRes(stQuiz quiz)
+{
+    cout << "------------------------------------\n";
+    if (quiz.rightAns >= quiz.wrongAns)
+        cout << "Final Result Is Pass :-)\n";
+    else
+        cout << "Final Result Is Fail :-(\n";
+    cout << "------------------------------------\n";
+    cout << "Number of questions: " << quiz.numsOfQuestions << endl;
+    cout << "Operation level: " << choosenLevelName(quiz.opLevel) << endl;
+    cout << "Operation type: " << choosenTypeName(quiz.opType) << endl;
+    cout << "Number of right answers: " << quiz.rightAns << endl;
+    cout << "Number of wrong answers: " << quiz.wrongAns << endl;
+    cout << "------------------------------------\n";
+}
+
+void startGame()
+{
+    char playAgain;
+    stQuiz quiz;
+    do
+    {
+        system("cls");
+        system("color 0F");
+        quiz.numsOfQuestions = readNumInRange(1, 1000, "How many questions do you want to answer? ");
+        quiz.opLevel = choosenLevel(readNumInRange(1, 4, "Your choise: [1]:easy, [2]:mid, [3]:hard, [4]:mix? "));
+        quiz.opType = choosenType(readNumInRange(1, 5, "Your choise: [1]:add, [2]:sub, [3]:mult, [4]:div, [5]:mix? "));
+        printNumOfQuestions(quiz);
+        printFinalRes(quiz);
+        cout << "Do you want to play again? y/n?\n";
+        cin >> playAgain;
+    } while (playAgain == 'y' || playAgain == 'Y');
+}
+
+int main()
+{
+    srand((unsigned)time(NULL));
+
+    startGame();
+    return 0;
+}
+

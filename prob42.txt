@@ -1,0 +1,58 @@
+int readPositiveNum(string msg)
+{
+    int num;
+    do
+    {
+        cout << msg << endl;
+        cin >> num;
+    } while (num <= 0);
+    return num;
+}
+
+int randomNum(int from, int to)
+{
+    int randomNum = rand() % (to - from + 1) + from;
+    return randomNum;
+}
+
+
+void fillArrayWithRandomNums(int arr[100], int arrLength)
+{
+    for (int i = 0; i < arrLength; i++)
+    {
+        arr[i] = randomNum(1, 100);
+    }
+}
+
+int countOddNumsInArray(int arr[100], int arrLength)
+{
+    int countOdd = 0;
+    for (int i = 0; i < arrLength; i++)
+    {
+        if (arr[i] % 2 != 0)
+            countOdd++;
+    }
+    return countOdd;
+}
+
+void printArrayElements(int arr[100], int arrLength)
+{
+    for (int i = 0; i < arrLength; i++)
+    {
+        cout << arr[i] << " ";
+    }
+    cout << "\n";
+}
+
+int main()
+{
+    srand((unsigned)time(NULL));
+
+    int arr[100];
+    int arrLength = readPositiveNum("Enter number of array elements");
+    fillArrayWithRandomNums(arr, arrLength);
+    cout << "\nArray elements:\n";
+    printArrayElements(arr, arrLength);
+    cout << "Odd numbers count is: " << countOddNumsInArray(arr, arrLength) << endl;
+    return 0;
+}

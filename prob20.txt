@@ -1,0 +1,38 @@
+enum enRandomChar {smallLettrs, capitalLetters, specialChar, digit};
+
+int randomNum(int from, int to)
+{
+    int randomNum = rand() % (to - from + 1) + from;
+    return randomNum;
+}
+
+char getRandomCharacter(enRandomChar charType)
+{
+    if (charType == enRandomChar::smallLettrs)
+    {      ;
+        return char(randomNum(97, 122));
+    }
+    if (charType == enRandomChar::capitalLetters)
+    {
+        return char(randomNum(65, 90));
+    }
+    if (charType == enRandomChar::specialChar)
+    {
+        return char(randomNum(33, 47));
+    }
+    if (charType == enRandomChar::digit)
+    {
+        return char(randomNum(48, 57));
+    }
+}
+
+int main()
+{
+    srand((unsigned)time(NULL));
+
+    cout << getRandomCharacter(enRandomChar::smallLettrs) << endl;
+    cout << getRandomCharacter(enRandomChar::capitalLetters) << endl;
+    cout << getRandomCharacter(enRandomChar::specialChar) << endl;
+    cout << getRandomCharacter(enRandomChar::digit) << endl;
+    return 0;
+}

@@ -1,0 +1,57 @@
+int readPositiveNum(string msg)
+{
+    int num;
+    do
+    {
+        cout << msg << endl;
+        cin >> num;
+    } while (num <= 0);
+    return num;
+}
+
+int randomNum(int from, int to)
+{
+    int randomNum = rand() % (to - from + 1) + from;
+    return randomNum;
+}
+
+void fillArrayWithRandomNums(float arr[100], int& arrLength)
+{
+    arrLength = readPositiveNum("Enter number of array elements");
+    for (int i = 0; i < arrLength; i++)
+    {
+        arr[i] = randomNum(1, 100);
+    }
+}
+
+void printArrayElements(float arr[100], int arrLength)
+{
+    cout << "\nArray elements : ";
+    for (int i = 0; i < arrLength; i++)
+    {
+        cout << arr[i] << " ";
+    }
+    cout << "\n";
+}
+
+float maxArrayElement(float arr[100], int arrLength)
+{
+    float maxNum = arr[0];
+    for (int i = 0; i < arrLength; i++)
+    {
+        if (maxNum < arr[i])
+            maxNum = arr[i];
+    }
+    return maxNum;
+}
+
+int main()
+{
+    srand((unsigned)time(NULL));
+    int arrLength;
+    float arr[100];   
+    fillArrayWithRandomNums(arr, arrLength);
+    printArrayElements(arr, arrLength);
+    cout << "Max number is : " << maxArrayElement(arr, arrLength) << endl;
+    return 0;
+}

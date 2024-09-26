@@ -1,0 +1,23 @@
+void multiplicationTableHeader()
+{
+    cout << "\n\n\t\t\t\tMultiplication Table From 1 To 10\n\n\t";
+    for (int i = 1; i <= 10; i++)
+    {
+        cout << "\t" << i;
+    }
+    cout << "\n-------------------------------------------------------------------------------------------\n";
+}
+
+void multiplicationTableBody()
+{
+    
+    for (int j = 1; j <= 10; j++)
+    {
+        cout << j << "\t|";
+        for (int k = 1; k <= 10; k++)
+        {
+            cout << "\t" << j * k;
+        }
+        cout << endl;
+    }
+}

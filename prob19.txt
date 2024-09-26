@@ -1,0 +1,14 @@
+int randomNum(int from, int to)
+{
+    int randomNum = rand() % (to - from + 1) + from;
+    return randomNum;
+}
+
+int main()
+{
+    srand((unsigned)time(NULL));
+    cout << randomNum(7, 25) << endl;
+    cout << randomNum(7, 25) << endl;
+    cout << randomNum(7, 25) << endl;
+    return 0;
+}

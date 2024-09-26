@@ -1,0 +1,33 @@
+float readNum(string msg)
+{
+    float num;
+    cout << msg << endl;
+    cin >> num;
+    return num;
+}
+
+int myRound(float num)
+{
+    if (num >= 0)
+    {
+        if (num - (int)num >= 0.5)
+            return (int)num + 1;
+        else
+            return (int)num;
+    }
+    else
+    {
+        if (num - (int)num <= -0.5)
+            return (int)num - 1;
+        else
+            return (int)num;
+    }
+}
+
+int main()
+{
+    float num = readNum("Enter a number");
+    cout << "\nMy round result is: " << myRound(num) << endl;
+    cout << "C++ round result is: " << round(num) << endl;
+    return 0;
+}

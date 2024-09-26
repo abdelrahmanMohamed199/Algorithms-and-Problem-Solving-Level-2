@@ -1,0 +1,37 @@
+string readName(string msg)
+{
+    string text;
+    cout << msg << endl;
+    getline(cin, text);
+    return text;
+}
+
+string textEncryption(string text, short encryptionKey)
+{
+    for (int i = 0; i < text.length(); i++)
+    {
+        text[i] = char(int(text[i]) + encryptionKey);
+    }
+    return text;
+}
+
+string textDecryption(string text, short encryptionKey)
+{
+    for (int i = 0; i < text.length(); i++)
+    {
+        text[i] = char(int(text[i]) - encryptionKey);
+    }
+    return text;
+}
+
+int main()
+{
+    const short encryptionKey = 2;
+    string text = readName("Enter a text");
+    string encryptionText = textEncryption(text, encryptionKey);
+    string decryptionText = textDecryption(encryptionText, encryptionKey);
+    cout << "Text before encryption: " << text << endl;
+    cout << "Text after encryption: " << encryptionText << endl;
+    cout << "Text after decryption: " << decryptionText;
+    return 0;
+}

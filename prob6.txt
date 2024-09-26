@@ -1,0 +1,29 @@
+int readPositiveNum(string msg)
+{
+    int num;
+    do
+    {
+        cout << msg << endl;
+        cin >> num;
+    } while (num <= 0);
+    return num;
+}
+
+int sumOfDigites(int num)
+{
+    int sum = 0;
+    int remainder = 0;
+    while (num > 0)
+    {
+        remainder = num % 10;
+        sum += remainder;
+        num /= 10;
+    }
+    return sum;
+}
+
+int main()
+{
+    cout << sumOfDigites(readPositiveNum("Please enter a positive number"));
+    return 0;
+}

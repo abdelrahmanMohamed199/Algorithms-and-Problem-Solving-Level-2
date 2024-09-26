@@ -1,0 +1,155 @@
+struct stPlayerResults
+{
+    int win, lose, draw;
+};
+
+int readNumInRange(int from, int to, string msg)
+{
+    int num;
+    do
+    {
+        cout << msg << endl;
+        cin >> num;
+    } while (num < from || num > to);
+    return num;
+}
+
+string playerChoise()
+{
+    int num = readNumInRange(1, 3, "Your choise: [1]:stone, [2]:paper, [3]:scissors ?");
+    if (num == 1)
+        return "stone";
+    else if (num == 2)
+        return "paper";
+    else
+        return "scissors";
+}
+
+int randomNum(int from, int to)
+{
+    int randomNum = rand() % (to - from + 1) + from;
+    return randomNum;
+}
+
+string computerChoise()
+{
+    int num = randomNum(1, 3);
+    if (num == 1)
+        return "stone";
+    else if (num == 2)
+        return "paper";
+    else
+        return "scissors";
+}
+
+string theResult(string pChoise, string compChoise)
+{
+    if(pChoise == compChoise)
+        return "Draw";
+
+    if (pChoise == "stone" && compChoise == "scissors")
+        return "Player 1 win";
+
+    else if (pChoise == "paper" && compChoise == "stone")
+        return "Player 1 win";
+
+    else if (pChoise == "scissors" && compChoise == "paper")
+        return "Player 1 win";
+
+    else
+        return "Computer win";
+}
+
+void printRoundResult(string pChoise, string compChoise)
+{
+    string result = theResult(pChoise, compChoise);
+    cout << "Player 1 Choise: " << pChoise << endl;
+    cout << "Computer Choise: " << compChoise << endl;
+    if (result == "Player 1 win")
+    {
+        cout << "Round Winner: [Player 1]\n";
+        system("color 2F");
+    }
+    else if (result == "Computer win")
+    {
+        cout << "Round Winner: [Computer]\n";
+        system("color 4F");
+        cout << "\a";
+    }
+    else
+    {
+        cout << "Round Winner: [No winner]\n";
+        system("color 6F");
+    }
+}
+
+void printRounds(int numOfRounds, string& pChoise, string& compChoise, stPlayerResults& pResult)
+{
+    pResult.draw = pResult.lose = pResult.win = 0;
+    for (int i = 1; i <= numOfRounds; i++)
+    {
+        cout << "\nRound [" << i << "] begins:\n\n";
+        pChoise = playerChoise();
+        compChoise = computerChoise();
+        cout << "\n----------Round [" << i << "]----------\n";
+        printRoundResult(pChoise, compChoise);
+        cout << "------------------------------\n\n";
+        if (theResult(pChoise, compChoise) == "Player 1 win")
+            pResult.win++;
+        else if (theResult(pChoise, compChoise) == "Computer win")
+            pResult.lose++;
+        else
+            pResult.draw++;
+    }
+}
+
+void printFinalResult(int numOfRounds, stPlayerResults playerResult)
+{
+    cout << "\t\t--------------------------------------------------\n";
+    cout << "\t\t\t\t+++ Game Over +++\n";
+    cout << "\t\t--------------------------------------------------\n";
+    cout << "\t\t-------------[Game Results]-------------\n";
+    cout << "\t\tNumber of Rounds: " << numOfRounds << endl;
+    cout << "\t\tPlayer 1 won times: " << playerResult.win << endl;
+    cout << "\t\tComputer won times: " << playerResult.lose << endl;
+    cout << "\t\tDraw times: " << playerResult.draw << endl;
+    if (playerResult.lose > playerResult.win)
+    {
+        cout << "\t\tFinal winner: Computer\n";
+    }
+    else if(playerResult.lose < playerResult.win)
+    {
+        cout << "\t\tFinal winner: Player 1\n";
+    }
+    else 
+    {
+        cout << "\t\tFinal winner: No Winner\n";
+    }
+    cout << "\t\t--------------------------------------------------\n";
+}
+
+void startGame(int& numOfRounds, string& pChoise, string& compChoise, stPlayerResults& pResults)
+{
+    char playAgain;
+    do
+    {
+        system("cls");
+        system("color 0F");
+        numOfRounds = readNumInRange(1, 10, "How many rounds 1 to 10 ?");
+        printRounds(numOfRounds, pChoise, compChoise, pResults);
+        printFinalResult(numOfRounds, pResults);
+        cout << "Do you want to play again? y/n?\n";
+        cin >> playAgain;
+    } while (playAgain == 'y' || playAgain == 'Y');
+}
+
+int main()
+{
+    srand((unsigned)time(NULL));
+
+    int numOfRounds;
+    string player1Choise, compChoise;
+    stPlayerResults player1Results;
+    startGame(numOfRounds, player1Choise, compChoise, player1Results);
+    return 0;
+}

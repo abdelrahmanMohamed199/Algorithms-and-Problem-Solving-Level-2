@@ -1,0 +1,62 @@
+int readPositiveNum(string msg)
+{
+    int num;
+    do
+    {
+        cout << msg << endl;
+        cin >> num;
+    } while (num <= 0);
+    return num;
+}
+
+int randomNum(int from, int to)
+{
+    int randomNum = rand() % (to - from + 1) + from;
+    return randomNum;
+}
+
+void fillArrayWithRandomNums(float arr[100], int& arrLength)
+{
+    arrLength = readPositiveNum("Enter number of array elements");
+    for (int i = 0; i < arrLength; i++)
+    {
+        arr[i] = randomNum(1, 100);
+    }
+}
+
+void printArrayElements(float arr[100], int arrLength)
+{
+    cout << "\nArray elements : ";
+    for (int i = 0; i < arrLength; i++)
+    {
+        cout << arr[i] << " ";
+    }
+    cout << "\n";
+}
+
+float sumOfArrayElements(float arr[100], int arrLength)
+{
+    float sum = 0;
+    for (int i = 0; i < arrLength; i++)
+    {
+            sum += arr[i];
+    }
+    return sum;
+}
+
+float averageOfArrayElements(float arr[100], int arrLength)
+{
+    return sumOfArrayElements(arr, arrLength) / arrLength;
+}
+
+int main()
+{
+    srand((unsigned)time(NULL));
+    int arrLength;
+    float arr[100];   
+    fillArrayWithRandomNums(arr, arrLength);
+    printArrayElements(arr, arrLength);
+    cout << "Average of all numbers is : " 
+         << averageOfArrayElements(arr, arrLength) << endl;
+    return 0;
+}

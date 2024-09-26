@@ -1,0 +1,44 @@
+float readNum(string msg)
+{
+    float num;
+    cout << msg << endl;
+    cin >> num;
+    return num;
+}
+
+int findNearstNum(float num)
+{
+    // find the nearst number which square root for its equal to an integer number
+    for (int i = 1; i < num / 2; i++)
+    {
+        if (i * i >= num)
+        {
+            return i * i;
+        }
+    }
+}
+
+int sqrtForNearstNum(int nearstNum)
+{
+    int i = 1;
+    while (nearstNum / i != i)
+    {
+        i ++;
+    }
+    return i;
+}
+
+float mySqrt(float num)
+{
+    int nearstNum = findNearstNum(num);
+    int sqrtNearst = sqrtForNearstNum(nearstNum);
+    return sqrtNearst - (nearstNum - num) / (sqrtNearst * 2);
+}
+
+int main()
+{
+    float num = readNum("Enter a number");
+    cout << "\nMy sqrt result is: " << mySqrt(num) << endl;
+    cout << "C++ sqrt result is: " << sqrt(num) << endl;
+    return 0;
+}

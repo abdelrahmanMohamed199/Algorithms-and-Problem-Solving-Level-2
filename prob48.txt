@@ -1,0 +1,25 @@
+float readNum(string msg)
+{
+    float num;
+    cout << msg << endl;
+    cin >> num;
+    return num;
+}
+
+int myFloor(float num)
+{
+    if (num == int(num))
+        return num;
+    else if (num >= 0)
+        return int(num);
+    else
+        return int(num) - 1;
+}
+
+int main()
+{
+    float num = readNum("Enter a number");
+    cout << "\nMy floor result is: " << myFloor(num) << endl;
+    cout << "C++ floor result is: " << floor(num) << endl;
+    return 0;
+}

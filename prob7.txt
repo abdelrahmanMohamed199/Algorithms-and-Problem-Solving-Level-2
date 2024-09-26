@@ -1,0 +1,43 @@
+int readPositiveNum(string msg)
+{
+    int num;
+    do
+    {
+        cout << msg << endl;
+        cin >> num;
+    } while (num <= 0);
+    return num;
+}
+
+int reversedNum(int num)
+{
+    string result = "";
+    int remainder = 0;
+    while (num > 0)
+    {
+        remainder = num % 10;
+        result += to_string(remainder);
+        num /= 10;
+    }
+    return stoi(result);
+}
+
+int main()
+{
+    cout << "reversed is:\n" << reversedNum(readPositiveNum("Please enter a positive number"));
+    return 0;
+}
+**************************************************************************************
+another solutoin:
+
+int reversedNum(int num)
+{
+    int remainder = 0, result = 0;
+    while (num > 0)
+    {
+        remainder = num % 10;
+        result = result * 10 + remainder;
+        num /= 10;
+    }
+    return result;
+}

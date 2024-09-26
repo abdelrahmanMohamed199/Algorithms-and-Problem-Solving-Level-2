@@ -1,0 +1,78 @@
+enum enRandomChar {smallLettrs, capitalLetters, specialChar, digit};
+
+int readPositiveNum(string msg)
+{
+    int num;
+    do
+    {
+        cout << msg << endl;
+        cin >> num;
+    } while (num <= 0);
+    return num;
+}
+
+int randomNum(int from, int to)
+{
+    int randomNum = rand() % (to - from + 1) + from;
+    return randomNum;
+}
+
+char getRandomCharacter(enRandomChar charType)
+{
+    if (charType == enRandomChar::smallLettrs)
+    {
+        ;
+        return char(randomNum(97, 122));
+    }
+    if (charType == enRandomChar::capitalLetters)
+    {
+        return char(randomNum(65, 90));
+    }
+    if (charType == enRandomChar::specialChar)
+    {
+        return char(randomNum(33, 47));
+    }
+    if (charType == enRandomChar::digit)
+    {
+        return char(randomNum(48, 57));
+    }
+}
+
+string generateWord(enRandomChar charType, short length)
+{
+    string word = "";
+    for (int i = 1; i <= length; i++)
+    {
+        word += getRandomCharacter(charType);
+    }
+    return word;
+}
+
+string generateKey()
+{
+    string key = "";
+    for (int i = 1; i <= 4; i++)
+    {
+        if (i == 4)
+            key += generateWord(enRandomChar::capitalLetters, 4);
+        else
+            key += generateWord(enRandomChar::capitalLetters, 4) + "-";
+    }
+    return key;
+}
+
+void printGeneratedKeys(int numOfKeys)
+{
+    for (int i = 1; i <= numOfKeys; i++)
+    {
+        cout << "Key [" << i << "] : " << generateKey() << endl;
+    }
+}
+
+int main()
+{
+    srand((unsigned)time(NULL));
+
+    printGeneratedKeys(readPositiveNum("How many keys?"));
+    return 0;
+}

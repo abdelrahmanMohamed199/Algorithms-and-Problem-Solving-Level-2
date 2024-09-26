@@ -1,0 +1,27 @@
+int readPositiveNum(string msg)
+{
+    int num;
+    do
+    {
+        cout << msg << endl;
+        cin >> num;
+    } while (num <= 0);
+    return num;
+}
+
+int reversedNum(int num)
+{
+    int remainder = 0, result = 0;
+    while (num > 0)
+    {
+        remainder = num % 10;
+        result = result * 10 + remainder;
+        num /= 10;
+    }
+    return result;
+}
+
+bool checkPalindrome(int num)
+{
+    return num == reversedNum(num);
+}

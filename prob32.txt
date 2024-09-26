@@ -1,0 +1,56 @@
+int readPositiveNum(string msg)
+{
+    int num;
+    do
+    {
+        cout << msg << endl;
+        cin >> num;
+    } while (num <= 0);
+    return num;
+}
+
+int randomNum(int from, int to)
+{
+    int randomNum = rand() % (to - from + 1) + from;
+    return randomNum;
+}
+
+void fillArrayWithRandomNums(int arr[100], int arrLength)
+{
+    for (int i = 0; i < arrLength; i++)
+    {
+        arr[i] = randomNum(1, 100);
+    }
+}
+
+void copyArrayInReversedOrder(int arrSource[100], int arrDestination[100], int arrLength)
+{
+    for (int i = 0; i < arrLength; i++)
+    {
+        arrDestination[i] = arrSource[arrLength - i - 1];
+    }
+}
+
+void printArrayElements(int arr[100], int arrLength)
+{
+    for (int i = 0; i < arrLength; i++)
+    {
+        cout << arr[i] << " ";
+    }
+    cout << "\n";
+}
+
+int main()
+{
+    srand((unsigned)time(NULL));
+
+    int arr1[100], arr2[100];
+    int arrLength = readPositiveNum("Enter number of array elements");
+    fillArrayWithRandomNums(arr1, arrLength);
+    copyArrayInReversedOrder(arr1, arr2, arrLength);
+    cout << "\nArray 1 elements\n";
+    printArrayElements(arr1, arrLength);
+    cout << "\nArray 2 elements after copying array 1 in reversed order\n";
+    printArrayElements(arr2, arrLength);
+    return 0;
+}

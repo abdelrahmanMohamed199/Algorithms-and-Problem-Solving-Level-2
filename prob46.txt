@@ -1,0 +1,23 @@
+float readNum(string msg)
+{
+    float num;
+    cout << msg << endl;
+    cin >> num;
+    return num;
+}
+
+float myAbs(float num)
+{
+    if (num < 0)
+        return num * -1;
+
+    return num;
+}
+
+int main()
+{
+    float num = readNum("Enter a number");
+    cout << "\nMy abs result is: " << myAbs(num) << endl;
+    cout << "C++ abs result is: " << abs(num) << endl;
+    return 0;
+}

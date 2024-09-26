@@ -1,0 +1,62 @@
+int readPositiveNum(string msg)
+{
+    int num;
+    do
+    {
+        cout << msg << endl;
+        cin >> num;
+    } while (num <= 0);
+    return num;
+}
+
+float readNum(string msg)
+{
+    float num;
+    cout << msg << endl;
+    cin >> num;
+    return num;
+}
+
+void readAndFillArray(float arr[100], int arrLength)
+{
+    cout << "Enter array elements :\n";
+    for (int i = 0; i < arrLength; i++)
+    {
+        cout << "Element [" << i + 1 << "] : ";
+        arr[i] = readNum("");
+        cout << endl;
+    }
+}
+
+void printArrayElements(float arr[100], int arrLength)
+{
+    cout << "Orginal array is : ";
+    for (int i = 0; i < arrLength; i++)
+    {
+        cout << arr[i] << " ";
+    }
+    cout << "\n";
+}
+
+int timesRepeated(float num, float arr[100], int arrLength)
+{
+    int count = 0;
+    for (int i = 0; i < arrLength; i++)
+    {
+        if (num == arr[i])
+            count++;
+    }
+    return count;
+}
+
+int main()
+{
+    int arrLength;
+    float numToCheck, arr[100];
+    arrLength = readPositiveNum("Enter number of array elements");
+    readAndFillArray(arr, arrLength);
+    numToCheck = readNum("Enter the number you want to check : ");
+    printArrayElements(arr, arrLength);
+    cout << numToCheck << " is repeated " << timesRepeated(numToCheck, arr, arrLength) << " time(s)\n";
+    return 0;
+}

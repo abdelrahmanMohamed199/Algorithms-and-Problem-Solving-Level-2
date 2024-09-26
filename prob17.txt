@@ -1,0 +1,40 @@
+string readPassWord(string msg)
+{
+    string pw;
+    cout << msg << endl;
+    cin >> pw;
+    return pw;
+}
+
+string findThePassWord(string pw)
+{
+    int count = 1;
+    string word = "";
+    for (int i = 65; i <= 90; i++)
+    {
+        for (int j = 65; j <= 90; j++)
+        {
+            for (int k = 65; k <= 90; k++)
+            {
+                word += char(i);
+                word += char(j);
+                word += char(k); 
+                cout << "Trial [" << count << "] : " << word << endl;
+                if (pw == word)
+                {
+                    return "\nPassword is " + word + "\nfound after " + to_string(count) + " trial(s)\n";
+                }
+                word = "";
+                count++;
+            }
+        }
+        cout << "--------------------------------------------------\n";
+    }
+    return "Not found";
+}
+
+int main()
+{
+    cout << findThePassWord(readPassWord("Enter a password"));
+    return 0;
+}

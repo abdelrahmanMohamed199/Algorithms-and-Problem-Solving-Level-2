@@ -1,0 +1,33 @@
+int readPositiveNum(string msg)
+{
+    int num;
+    do
+    {
+        cout << msg << endl;
+        cin >> num;
+    } while (num <= 0);
+    return num;
+}
+
+int howManyDigitRepeat(int num, short digit)
+{
+    int remainder = 0, counter = 0;
+    while (num > 0)
+    {
+        remainder = num % 10;
+        if (remainder == digit)
+            counter++;
+        num /= 10;
+    }
+    return counter;
+}
+
+int main()
+{
+    int num = readPositiveNum("Enter a positive number");
+    short digit = readPositiveNum("Enter a digit");
+    cout << "Digit " << digit << " frequency is "
+        << howManyDigitRepeat(num, digit) << " time(S)\n";
+         
+    return 0;
+}
